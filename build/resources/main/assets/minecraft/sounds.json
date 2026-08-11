@@ -1,0 +1,22 @@
+{
+  "music.menu": {
+    "sounds": [
+      {
+        "name": "music/menu/menu1",
+        "stream": true,
+        "weight": 1
+      },
+      {
+        "name": "music/menu/menu2",
+        "stream": true,
+        "weight": 1
+      },
+      {
+        "name": "music/menu/menu3",
+        "stream": true,
+        "weight": 1
+      }
+    ],
+    "replace": true
+  }
+}
