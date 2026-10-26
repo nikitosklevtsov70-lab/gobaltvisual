@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -12,6 +12,14 @@ base {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "Fabric"
+        url = "https://maven.fabricmc.net/"
+    }
+    maven {
+        name = "Fabric Mirror"
+        url = "https://maven.quiltmc.org/repository/release/" // <-- Зеркало
+    }
 }
 
 dependencies {
