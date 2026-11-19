@@ -1,0 +1,17 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.example.gobaltvisual.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+
+    ],
+    "client": [
+        "MixinEntityRenderDispatcher",
+        "MixinArmorFeatureRenderer",
+        "MixinInGameHud"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

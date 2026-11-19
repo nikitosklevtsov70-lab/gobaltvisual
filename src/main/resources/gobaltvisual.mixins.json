@@ -8,7 +8,8 @@
     ],
     "client": [
         "MixinEntityRenderDispatcher",
-        "MixinArmorFeatureRenderer"
+        "MixinArmorFeatureRenderer",
+        "MixinInGameHud"
     ],
     "injectors": {
         "defaultRequire": 1

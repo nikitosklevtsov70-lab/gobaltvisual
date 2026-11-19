@@ -1,0 +1,25 @@
+ {
+ "schemaVersion": 1,
+  "id": "gobaltvisual",
+  "version": "2.0-a0",
+  "name": "Gobalt Visual",
+  "description": "Visual mod for Minecraft",
+  "authors": ["nikitosklevtsov70-lab"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/gobaltvisual/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.example.gobaltvisual.Gobaltvisual"
+    ]
+  },
+  "mixins": [
+    "gobaltvisual.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": ">=1.21.1",
+    "java": ">=21"
+  }
+}

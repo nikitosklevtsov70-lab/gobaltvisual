@@ -1,0 +1,14 @@
+*.zip
+*.jar
+*.log
+*.png
+*.ogg
+build/
+.gradle/
+.idea/
+*.iml
+.txt
+.bat
+.md
+.history
+.editorconfig

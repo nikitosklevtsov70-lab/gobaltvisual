@@ -1,79 +1,100 @@
 package com.example.gobaltvisual.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import net.fabricmc.loader.api.FabricLoader;
-import java.io.*;
-import java.nio.file.Path;
-
 public class HitboxesConfig {
-    private static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("gobaltvisual_hitboxes.json");
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static HitboxesData data = new HitboxesData();
 
     public static class HitboxesData {
-        public boolean enabled = true;
-        public float red = 0.0f;
-        public float green = 1.0f;
-        public float blue = 0.0f;
-        public float alpha = 0.5f;
-        public float widthScale = 1.0f;
-        public float heightScale = 1.0f;
-        public float lineThickness = 1.0f;
-        public boolean enableHitGlow = true;
-        public float hitRed = 1.0f;
-        public float hitGreen = 0.0f;
-        public float hitBlue = 0.0f;
-        public float hitAlpha = 0.8f;
-        public String hitboxMode = "solid";
-        public boolean blinkEnabled = false;
-        public float blinkSpeed = 1.0f;
-        public float blinkMinAlpha = 0.1f;
-        public float blinkMaxAlpha = 1.0f;
-        public boolean gradientEnabled = false;
-        public float gradientRed1 = 1.0f, gradientGreen1 = 0.0f, gradientBlue1 = 0.0f;
-        public float gradientRed2 = 0.0f, gradientGreen2 = 1.0f, gradientBlue2 = 0.0f;
-        public float gradientRed3 = 0.0f, gradientGreen3 = 0.0f, gradientBlue3 = 1.0f;
-        public float gradientSpeed = 1.0f;
-        public boolean extendedEnabled = false;
-        public float headRed = 0.0f, headGreen = 1.0f, headBlue = 1.0f;
-        public float bodyRed = 1.0f, bodyGreen = 0.0f, bodyBlue = 0.0f;
-        public float legsRed = 1.0f, legsGreen = 1.0f, legsBlue = 0.0f;
-        public boolean modelEnabled = false;
-        public float modelRed = 0.0f, modelGreen = 1.0f, modelBlue = 0.0f;
-        public float modelAlpha = 0.3f;
-        public boolean modelGlow = true;
-        public boolean healthColorEnabled = false;
-        public float healthGreenR = 0.0f, healthGreenG = 1.0f, healthGreenB = 0.0f;
-        public float healthYellowR = 1.0f, healthYellowG = 1.0f, healthYellowB = 0.0f;
-        public float healthRedR = 1.0f, healthRedG = 0.0f, healthRedB = 0.0f;
-        public float healthThreshold1 = 0.5f;
-        public float healthThreshold2 = 0.25f;
-        public boolean shaderEnabled = false;
-        public String shaderType = "none";
-        public float shaderRed = 0.0f, shaderGreen = 1.0f, shaderBlue = 1.0f;
-        public float shaderAlpha = 0.6f;
-        public float shaderSpeed = 1.0f;
-        public float shaderSize = 1.0f;
-        public boolean skinHighlightEnabled = false;
-        public boolean rainbowEnabled = false;
-        public boolean neonEnabled = false;
-        public float neonIntensity = 0.5f;
-        public float rainbowSpeed = 1.0f;
+        public boolean enabled = false;
+        public float red = 0.5f;
+        public float green = 0.0f;
+        public float blue = 1.0f;
+        public float alpha = 1.0f;
+        public float lineWidth = 2.0f;
+        public boolean showMobs = true;
+        public boolean showPlayers = true;
     }
 
+    public static HitboxesData data = new HitboxesData();
+
+    private static final int DEFAULT_COLOR = 0xFF8000FF; // фиолетовый
+
     public static void load() {
-        if (PATH.toFile().exists()) {
-            try (Reader reader = new FileReader(PATH.toFile())) {
-                data = GSON.fromJson(reader, HitboxesData.class);
-            } catch (IOException ignored) {}
-        }
+        sync();
+    }
+
+    /** Сохраняет текущие RGB+alpha в TogglesConfig. */
+    public static void save() {
+        TogglesConfig.set("ПВП", "хитбоксы", data.enabled);
+        TogglesConfig.set("хитбоксы", "Показывать мобов", data.showMobs);
+        TogglesConfig.set("хитбоксы", "Показывать игроков", data.showPlayers);
+        TogglesConfig.setFloat("хитбоксы", "ЦветR", data.red);
+        TogglesConfig.setFloat("хитбоксы", "ЦветG", data.green);
+        TogglesConfig.setFloat("хитбоксы", "ЦветB", data.blue);
+        TogglesConfig.setFloat("хитбоксы", "Прозрачность", data.alpha);
+        TogglesConfig.setFloat("хитбоксы", "Толщина", data.lineWidth);
+    }
+
+    /** Установить цвет (ARGB int). Используется для кнопок-палитры. */
+    public static void setColor(int argb) {
+        data.red   = ((argb >> 16) & 0xFF) / 255f;
+        data.green = ((argb >> 8)  & 0xFF) / 255f;
+        data.blue  = ( argb        & 0xFF) / 255f;
+        System.out.println("[GV-SET] argb=0x" + Integer.toHexString(argb)
+        + " → data=" + data.red + "," + data.green + "," + data.blue + "," + data.alpha);
+        System.out.println("[GV-SET] readback r=" + TogglesConfig.getFloat("хитбоксы", "ЦветR"));
         save();
     }
 
-    public static void save() {
-        try (Writer writer = new FileWriter(PATH.toFile())) {
-            GSON.toJson(data, writer);
-        } catch (IOException ignored) {}
+    /** Получить текущий цвет как ARGB. Используется для превью. */
+    public static int getColor() {
+        int r = (int)(data.red * 255)   & 0xFF;
+        int g = (int)(data.green * 255) & 0xFF;
+        int b = (int)(data.blue * 255)  & 0xFF;
+        int a = (int)(data.alpha * 255) & 0xFF;
+        return (a << 24) | (r << 16) | (g << 8) | b;
+    }
+
+    /** Читает всё из TogglesConfig. Не перезаписывает RGB дефолтами, если сохранено. */
+    private static long lastPrintTick = -1L;
+private static String lastPrinted = "";
+
+    public static void sync() {
+        data.enabled = TogglesConfig.get("ПВП", "хитбоксы");
+        data.showMobs = TogglesConfig.get("хитбоксы", "Показывать мобов");
+        data.showPlayers = TogglesConfig.get("хитбоксы", "Показывать игроков");
+
+        float r = TogglesConfig.getFloat("хитбоксы", "ЦветR");
+        float g = TogglesConfig.getFloat("хитбоксы", "ЦветG");
+        float b = TogglesConfig.getFloat("хитбоксы", "ЦветB");
+        float a = TogglesConfig.getFloat("хитбоксы", "Прозрачность");
+        float lw = TogglesConfig.getFloat("хитбоксы", "Толщина");
+
+        if (r < 0 || g < 0 || b < 0 || a < 0 || lw < 0) {
+        data.red = 0.5f;
+        data.green = 0.0f;
+        data.blue = 1.0f;
+        data.alpha = 1.0f;
+        data.lineWidth = 2.0f; // Дефолтная толщина
+        save();
+        } else {
+        data.red = r;
+        data.green = g;
+        data.blue = b;
+        data.alpha = a;
+        data.lineWidth = lw;
+    }
+        // 🔍 ДЕБАГ — раз в 20 тиков и только если изменилось
+        net.minecraft.client.MinecraftClient mc = net.minecraft.client.MinecraftClient.getInstance();
+        if (mc.player != null) {
+            long tick = mc.player.age;
+            if (tick != lastPrintTick && tick % 20 == 0) {
+                lastPrintTick = tick;
+                String snapshot = String.format("r=%.2f g=%.2f b=%.2f a=%.2f | data=%.2f,%.2f,%.2f,%.2f",
+                        r, g, b, a, data.red, data.green, data.blue, data.alpha);
+                if (!snapshot.equals(lastPrinted)) {
+                    lastPrinted = snapshot;
+                    System.out.println("[GV-SYNC] " + snapshot);
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,2 @@
+/gv:admin
+/time set day
