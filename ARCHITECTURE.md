@@ -15,7 +15,6 @@ gobaltvisual/
 │   │   ├── java/.../gobaltvisual/
 │   │   │   ├── GobaltVisualClient.java    # Главный Entrypoint (ClientModInitializer)
 │   │   │   ├── config/                    # Система конфигурации
-│   │   │                     # Обработчики событий (Tick, Render, Keybind)
 │   │   │   ├── mixin/                     # Миксины (вмешательство в ванильный код)
 │   │   │   ├── render/                    # Логика отрисовки (HUD и мир)
 │   │   │   └── util/                      # Утилитарные классы (математика, хелперы)
