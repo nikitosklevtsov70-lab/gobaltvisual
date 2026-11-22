@@ -40,6 +40,7 @@ public class MixinEntityRenderDispatcher {
         if (entity instanceof ArmorStandEntity) return;
         if (entity instanceof MobEntity && !cfg.showMobs) return;
         if (entity instanceof PlayerEntity && !cfg.showPlayers) return;
+        if (entity.hasStatusEffect(StatusEffects.INVISIBILITY)) return;
 
         try {
             Vec3d cameraPos = mc.gameRenderer.getCamera().getPos();
