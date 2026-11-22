@@ -12,15 +12,15 @@
 gobaltvisual/
 ├── src/
 │   ├── main/                  # Клиентский код (основная логика мода)
-│   │   ├── java/.../gobaltvisual/
-│   │   │   ├── GobaltVisualClient.java    # Главный Entrypoint (ClientModInitializer)
-│   │   │   ├── config/                    # Система конфигурации
-│   │   │   ├── mixin/                     # Миксины (вмешательство в ванильный код)
-│   │   │   ├── render/                    # Логика отрисовки (HUD и мир)
-│   │   │   └── util/                      # Утилитарные классы (математика, хелперы)
-│   │   └── resources/
-│   │       ├── fabric.mod.json            # Манифест мода
-│   │       ├── gobaltvisual.mixins.json   # Конфигурация миксинов
-│   │       └── assets/                    # Текстуры, иконки, локализация (lang)
-│   └── main/                       # (Обычно пусто, но требуется Fabric)
+│      ├── java/.../gobaltvisual/
+│      │   ├── GobaltVisualClient.java    # Главный Entrypoint (ClientModInitializer)
+│      │   ├── config/                    # Система конфигурации
+│      │   ├── mixin/                     # Миксины (вмешательство в ванильный код)
+│      │   ├── render/                    # Логика отрисовки (HUD и мир)
+│      │   └── util/                      # Утилитарные классы (математика, хелперы)
+│      └── resources/
+│          ├── fabric.mod.json            # Манифест мода
+│          ├── gobaltvisual.mixins.json   # Конфигурация миксинов
+│          └── assets/                    # Текстуры, иконки, локализация (lang)
+│                # (Обычно пусто, но требуется Fabric)
 └── build.gradle                    # Настройки сборки и зависимости
