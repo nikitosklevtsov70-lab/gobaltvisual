@@ -1,3 +1,4 @@
+/*
 package com.example.gobaltvisual.gui;
 
 import net.minecraft.client.gui.DrawContext;
@@ -46,4 +47,4 @@ public class GobaltButton extends ButtonWidget {
             0xFFF3F3F3
         );
     }
-}
+}*/
